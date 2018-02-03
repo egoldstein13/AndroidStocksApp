@@ -48,19 +48,23 @@ public class StableArrayAdapter extends ArrayAdapter<String>
     int width = parent.getWidth();
     Context cx = this.getContext();
     LayoutInflater inflater = (LayoutInflater) cx.getSystemService(cx.LAYOUT_INFLATER_SERVICE);
-    View rowView = inflater.inflate(R.layout.scorelayout, parent, false);
+    View rowView = null;
+    //View rowView = inflater.inflate(R.layout.scorelayout, parent, false);
     String str = values.get(position);
     String[] vals = str.split("\t");
-    TextView tvName = (TextView) rowView.findViewById(R.id.sl_name);
+    //TextView tvName = (TextView) rowView.findViewById(R.id.sl_name);
+    TextView tvName = null;
     tvName.setWidth((int) (width * .30));
     tvName.setText(vals[2]);
 
-    TextView tvScore = (TextView) rowView.findViewById(R.id.sl_score);
+    TextView tvScore = null;
+    //TextView tvScore = (TextView) rowView.findViewById(R.id.sl_score);
     int stemp = Integer.parseInt(vals[0]);
     tvScore.setWidth((int) (width * .15));
     tvScore.setText(Integer.toString(stemp));
 
-    TextView tvDate = (TextView) rowView.findViewById(R.id.sl_date);
+    TextView tvDate = null;
+    //TextView tvDate = (TextView) rowView.findViewById(R.id.sl_date);
     tvDate.setWidth((int) (width * .5));
     tvDate.setText(vals[1].replace("CDT ", ""));
     return rowView;
