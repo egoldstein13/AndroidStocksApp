@@ -1,23 +1,27 @@
 package esthergoldstein.assignment2;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * Created by esthergoldstein on 2/3/18.
  */
 
-public class RetrieveResultsTask<URL, Integer, Bitmap> extends AsyncTask{
+public class RetrieveResultsTask extends AsyncTask<String, Integer, Bitmap>{
     @Override
-    protected Object doInBackground(Object[] objects) {
-        String fullUrl = "http://google.com";
+    protected Bitmap doInBackground(String... params) {
+        String fullUrl = "http://utdallas.edu/~John.Cole/2017Spring/" + params[0] + ".txt";
         try {
-            java.net.URL url = new java.net.URL(fullUrl);
+            URL url = new URL(fullUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(1000);

@@ -27,8 +27,7 @@ public class HomePage extends AppCompatActivity {
         String text;
         EditText et = (EditText) findViewById(R.id.editText);
         text = et.getText().toString();
-        Intent iSend = new Intent(this, RetrieveResultsTask.class);
-        iSend.putExtra("text", text.toUpperCase());
-        startActivity(iSend);
+        RetrieveResultsTask resultRetriever = new RetrieveResultsTask();
+        resultRetriever.execute(text.toUpperCase());
     }
 }
