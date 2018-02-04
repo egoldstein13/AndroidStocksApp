@@ -6,14 +6,15 @@
     android:layout_height="match_parent"
     tools:context="esthergoldstein.assignment2.ResultsPage">
 
-    <ScrollView
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <ListView
         android:id="@+id/listview"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:scrollbars="horizontal">
     </ListView>
-    </ScrollView>
+    </HorizontalScrollView>
 
 </android.support.constraint.ConstraintLayout>

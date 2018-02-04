@@ -9,6 +9,7 @@
 package esthergoldstein.assignment2;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,14 +73,24 @@ public class StableArrayAdapter extends ArrayAdapter<HashMap<String, String>>
         holder.close = (TextView) cvtView.findViewById(R.id.close);
         holder.volume = (TextView) cvtView.findViewById(R.id.volume);
         holder.adjClose = (TextView) cvtView.findViewById(R.id.adjClose);
+
+        holder.date.setText(values.get(position).get("Date"));
+        holder.open.setText(values.get(position).get("Open"));
+        holder.high.setText(values.get(position).get("High"));
+        holder.low.setText(values.get(position).get("Low"));
+        holder.close.setText(values.get(position).get("Close"));
+        holder.volume.setText(values.get(position).get("Volume"));
+        holder.adjClose.setText(values.get(position).get("AdjClose"));
+        if(values.get(position).get("Date").toUpperCase().equals("DATE")){
+            holder.date.setGravity(Gravity.LEFT);
+            holder.open.setGravity(Gravity.LEFT);
+            holder.high.setGravity(Gravity.LEFT);
+            holder.low.setGravity(Gravity.LEFT);
+            holder.close.setGravity(Gravity.LEFT);
+            holder.volume.setGravity(Gravity.LEFT);
+            holder.adjClose.setGravity(Gravity.LEFT);
+        }
         cvtView.setTag(holder);
-        holder.date.setText(values.get(position).get("date"));
-        holder.open.setText(values.get(position).get("open"));
-        holder.high.setText(values.get(position).get("high"));
-        holder.low.setText(values.get(position).get("low"));
-        holder.close.setText(values.get(position).get("close"));
-        holder.volume.setText(values.get(position).get("volume"));
-        holder.adjClose.setText(values.get(position).get("adjClose"));
     }
     else{
       holder = (ViewHolder) cvtView.getTag();

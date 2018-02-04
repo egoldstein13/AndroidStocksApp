@@ -2,25 +2,14 @@ package esthergoldstein.assignment2;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import static java.net.Proxy.Type.HTTP;
 
 public class HomePage extends AppCompatActivity {
 
@@ -48,13 +37,26 @@ public class HomePage extends AppCompatActivity {
             AlertDialog alert = builder.create();
             alert.show();
         }
+        else if(iSent != null && iSent.hasExtra("Timeout")){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Session Timeout")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 
     public void startAsyncTask(View sender){
         String text;
         text = userInput.getText().toString();
-        ResultsPage.RetrieveResultsTask resultRetriever = new ResultsPage.RetrieveResultsTask(this);
-        resultRetriever.execute(text.toUpperCase());
+        Intent iSend = new Intent(this, ResultsPage.class);
+        iSend.putExtra("text", text.toUpperCase());
+        startActivity(iSend);
 
     }
     private final TextWatcher inputWatcher = new TextWatcher() {
