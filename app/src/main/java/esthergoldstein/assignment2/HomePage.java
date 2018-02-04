@@ -1,6 +1,9 @@
 package esthergoldstein.assignment2;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -31,13 +35,27 @@ public class HomePage extends AppCompatActivity {
         userInput = (EditText)findViewById(R.id.editText);
         displayButton.setEnabled(false);
         userInput.addTextChangedListener(inputWatcher);
+        Intent iSent = getIntent();
+        if(iSent != null && iSent.hasExtra("404")){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("404 Not Found")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do things
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 
     public void startAsyncTask(View sender){
         String text;
         text = userInput.getText().toString();
-        RetrieveResultsTask resultRetriever = new RetrieveResultsTask();
+        RetrieveResultsTask resultRetriever = new RetrieveResultsTask(this);
         resultRetriever.execute(text.toUpperCase());
+
     }
     private final TextWatcher inputWatcher = new TextWatcher() {
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
