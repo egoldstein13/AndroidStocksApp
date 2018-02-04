@@ -53,7 +53,7 @@ public class HomePage extends AppCompatActivity {
     public void startAsyncTask(View sender){
         String text;
         text = userInput.getText().toString();
-        RetrieveResultsTask resultRetriever = new RetrieveResultsTask(this);
+        ResultsPage.RetrieveResultsTask resultRetriever = new ResultsPage.RetrieveResultsTask(this);
         resultRetriever.execute(text.toUpperCase());
 
     }

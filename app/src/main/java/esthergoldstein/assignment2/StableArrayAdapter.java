@@ -15,18 +15,30 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class StableArrayAdapter extends ArrayAdapter<String>
+public class StableArrayAdapter extends ArrayAdapter<HashMap<String, String>>
   {
-  List<String> values;
+  ArrayList<HashMap<String, String>> values;
 
   public StableArrayAdapter(Context context, int textViewResourceId,
-                            List<String> objects)
+                            ArrayList<HashMap<String, String>> objects)
     {
     super(context, textViewResourceId, objects);
     values = objects;
     }
+
+      private class ViewHolder {
+          TextView date;
+          TextView open;
+          TextView high;
+          TextView low;
+          TextView close;
+          TextView volume;
+          TextView adjClose;
+      }
 
   /****************************************************************************
    * This overridden function is called for each line in the list.  Split the
@@ -47,26 +59,32 @@ public class StableArrayAdapter extends ArrayAdapter<String>
     {
     int width = parent.getWidth();
     Context cx = this.getContext();
+    ViewHolder holder;
     LayoutInflater inflater = (LayoutInflater) cx.getSystemService(cx.LAYOUT_INFLATER_SERVICE);
-    View rowView = null;
-    //View rowView = inflater.inflate(R.layout.scorelayout, parent, false);
-    String str = values.get(position);
-    String[] vals = str.split("\t");
-    //TextView tvName = (TextView) rowView.findViewById(R.id.sl_name);
-    TextView tvName = null;
-    tvName.setWidth((int) (width * .30));
-    tvName.setText(vals[2]);
 
-    TextView tvScore = null;
-    //TextView tvScore = (TextView) rowView.findViewById(R.id.sl_score);
-    int stemp = Integer.parseInt(vals[0]);
-    tvScore.setWidth((int) (width * .15));
-    tvScore.setText(Integer.toString(stemp));
+    if(cvtView == null) {
+        cvtView = inflater.inflate(R.layout.listview_format, parent, false);
+        holder = new ViewHolder();
+        holder.date = (TextView) cvtView.findViewById(R.id.date);
+        holder.open = (TextView) cvtView.findViewById(R.id.open);
+        holder.high = (TextView) cvtView.findViewById(R.id.high);
+        holder.low = (TextView) cvtView.findViewById(R.id.low);
+        holder.close = (TextView) cvtView.findViewById(R.id.close);
+        holder.volume = (TextView) cvtView.findViewById(R.id.volume);
+        holder.adjClose = (TextView) cvtView.findViewById(R.id.adjClose);
+        cvtView.setTag(holder);
+        holder.date.setText(values.get(position).get("date"));
+        holder.open.setText(values.get(position).get("open"));
+        holder.high.setText(values.get(position).get("high"));
+        holder.low.setText(values.get(position).get("low"));
+        holder.close.setText(values.get(position).get("close"));
+        holder.volume.setText(values.get(position).get("volume"));
+        holder.adjClose.setText(values.get(position).get("adjClose"));
+    }
+    else{
+      holder = (ViewHolder) cvtView.getTag();
+  }
 
-    TextView tvDate = null;
-    //TextView tvDate = (TextView) rowView.findViewById(R.id.sl_date);
-    tvDate.setWidth((int) (width * .5));
-    tvDate.setText(vals[1].replace("CDT ", ""));
-    return rowView;
+    return cvtView;
     }
   }
