@@ -2,12 +2,10 @@ package esthergoldstein.assignment2;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
@@ -19,7 +17,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Timer;
 
 /**
  * Created by esthergoldstein on 2/3/18.
@@ -43,8 +40,6 @@ public class ResultsPage extends AppCompatActivity {
             strText = iSent.getStringExtra("text");
         }
         listView = (ListView) findViewById(R.id.listview);
-        adapter = new StableArrayAdapter(ResultsPage.this, R.layout.listview_format, results);
-        listView.setAdapter(adapter);
         new RetrieveResultsTask(ResultsPage.this).execute(strText);
     }
 
@@ -105,14 +100,12 @@ public class ResultsPage extends AppCompatActivity {
                     results.add(map);
                 }
                 return results;
-                //close streams
             }
             catch(Exception e){
                 Log.e("Error", e.getMessage());
                 e.printStackTrace();
 
             }
-            //to-do:return results
             return null;
         }
 
@@ -126,7 +119,8 @@ public class ResultsPage extends AppCompatActivity {
                 intent.putExtra("404", "404");
                 context.startActivity(intent);
             } else {
-                adapter.notifyDataSetChanged();
+                adapter = new StableArrayAdapter(context, R.layout.listview_format, results);
+                listView.setAdapter(adapter);
             }
 
         }
