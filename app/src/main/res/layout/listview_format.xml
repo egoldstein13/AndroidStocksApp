@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Written by Esther Goldstein and Neel Jathanna for CS 4301.003,
+ Assignment 2, starting February 3, 2018.
+ Describes the layout for each TextView within the ListView.
+ NetIDs: emg140230 and nsj140030 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,33 +14,29 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:background="#D3D3D3"
-            android:gravity="right"
-            />
+            android:gravity="right" />
         <TextView
             android:id="@+id/open"
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:layout_marginRight="5dp"
-            android:gravity="right"
-           />
+            android:gravity="right" />
         <TextView
             android:id="@+id/high"
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:padding="5dp"
-             android:layout_marginRight="5dp"
+            android:layout_marginRight="5dp"
             android:background="#D3D3D3"
-            android:gravity="right"
-           />
+            android:gravity="right" />
         <TextView
             android:id="@+id/low"
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:layout_marginRight="5dp"
-            android:gravity="right"
-           />
+            android:gravity="right" />
         <TextView
             android:id="@+id/close"
             android:layout_width="90dp"
@@ -44,15 +44,14 @@
             android:padding="5dp"
             android:layout_marginRight="5dp"
             android:background="#D3D3D3"
-            android:gravity="right"/>
+            android:gravity="right" />
         <TextView
             android:id="@+id/volume"
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:layout_marginRight="5dp"
-            android:gravity="right"
-           />
+            android:gravity="right" />
         <TextView
             android:id="@+id/adjClose"
             android:layout_width="90dp"
@@ -60,7 +59,5 @@
             android:padding="5dp"
             android:layout_marginRight="5dp"
             android:background="#D3D3D3"
-            android:gravity="right"
-            />
-
+            android:gravity="right" />
 </LinearLayout>

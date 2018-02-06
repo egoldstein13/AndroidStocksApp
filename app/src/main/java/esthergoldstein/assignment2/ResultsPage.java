@@ -1,21 +1,18 @@
 /** ***************************************************************************
- * Stock Information Program.
+ * Stock Information Program: Results Page
  *
- * This program displays stock information (Date, Open, High, Low, Close, Volume,
- * Adjusted close). It operates by providing a textbox for the user to enter a
- * a stock's ticker symbol. It then returns a listview of the stock information
- * for the user to view.
- *
- * If the user enters an invalid or an unavailable stock ticker symbol,
- * a 404 not found popup is displayed and then the program requests a different
- * symbol from the user.
- *
- * The files that contain the stock information are available at:
- * http://utdallas.edu/~John.Cole/2017Spring/
+ * Contains the RetrieveResultsTask AsyncTask for the application's background
+ * processing. The ResultsPage activity gets the symbol from the HomePage activity,
+ * converts it to uppercase, and then checks if it exists on
+ * http://utdallas.edu/~John.Cole/2017Spring/<symbol>.txt. If it doesn't or there's
+ * a timeout after 45 seconds, it sends that infor back to the HomePage activity.
+ * Otherwise it parses the data and creates an ArrayList of Hashmaps for it.
+ * Then it creates a StableArrayAdapter for the data in order to display it
+ * on the screen.
  *
  * Written by Esther Goldstein and Neel Jathanna for CS 4301.003,
  * Assignment 2, starting February 3, 2018.
- * NetID: emg140230 and nsj140030
+ * NetIDs: emg140230 and nsj140030
  *
  * Esther Goldstein: HomePage.java, ResultsPage.onPostExecute,
  *                   ResultsPage.displayDialogAfterTimeout,
@@ -51,6 +48,10 @@ public class ResultsPage extends AppCompatActivity {
     static Handler handler;
     static RetrieveResultsTask task;
 
+    //Receives the stock symbol from the HomePage activity,
+    //initializes the results ArrayList of HashMap,
+    //and starts the RetrieveResultsTask AsyncTask
+    //Written by Neel Jathanna
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +71,8 @@ public class ResultsPage extends AppCompatActivity {
         private Context context;
         private ProgressDialog dialog;
 
+        //Constructor that sets activity context and initializes the progress dialog box
+        //Written by Esther Goldstein
         public RetrieveResultsTask(Context context){
             this.context = context.getApplicationContext();
             dialog = new ProgressDialog(context);
@@ -78,6 +81,7 @@ public class ResultsPage extends AppCompatActivity {
         /**************************************************************************
          * Before searching for the file, display the processing dialog until
          * the timeout (45 seconds)
+         * Written by Esther Goldstein
          **************************************************************************/
         @Override
         protected void onPreExecute() {
@@ -99,6 +103,7 @@ public class ResultsPage extends AppCompatActivity {
          * files into hashmap.
          * Accepts String parameter for the file name
          * Returns hashmap of parsed values from text file
+         * Written by Neel Jathanna
          **************************************************************************/
         @Override
         protected ArrayList<HashMap<String, String>> doInBackground(String... params) {
@@ -147,13 +152,14 @@ public class ResultsPage extends AppCompatActivity {
 
         /**************************************************************************
          * After executing the file search and determining if the file was found
+         * Written by Esther Goldstein
          **************************************************************************/
         @Override
         protected void onPostExecute(ArrayList<HashMap<String, String>> strings) {
             if (dialog.isShowing()) {
                 dialog.dismiss();
             }
-            // if no values were stored then the file was not found and display 404
+            //If no values were stored then the file was not found and display 404
             if (strings == null) {
                 Intent intent = new Intent(context, HomePage.class);
                 intent.putExtra("404", "404");
@@ -165,12 +171,17 @@ public class ResultsPage extends AppCompatActivity {
             cancelTask();
         }
 
+        //If the program has timed out, start the HomePage activity again
+        //Written by Esther Goldstein
         public void displayDialogAfterTimeout(Boolean result){
             cancel(result);
             Intent intent = new Intent(context, HomePage.class);
             intent.putExtra("Timeout", "Timeout");
             context.startActivity(intent);
         }
+        //If the program executed without a timeout, cancel it and
+        //prevent the handler from continuing to execute
+        //Written by Neel Jathanna
         public void cancelTask(){
             handler.removeCallbacksAndMessages(null);
             cancel(true);

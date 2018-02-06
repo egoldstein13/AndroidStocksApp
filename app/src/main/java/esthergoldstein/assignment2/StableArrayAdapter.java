@@ -1,21 +1,13 @@
 /** ***************************************************************************
- * Stock Information Program.
+ * Stock Information Program: StableArrayAdapter
  *
- * This program displays stock information (Date, Open, High, Low, Close, Volume,
- * Adjusted close). It operates by providing a textbox for the user to enter a
- * a stock's ticker symbol. It then returns a listview of the stock information
- * for the user to view.
- *
- * If the user enters an invalid or an unavailable stock ticker symbol,
- * a 404 not found popup is displayed and then the program requests a different
- * symbol from the user.
- *
- * The files that contain the stock information are available at:
- * http://utdallas.edu/~John.Cole/2017Spring/
+ * Sets the View for to display the data on screen. First it checks if the current
+ * view is null. If it isn't, it initializes the TextViews. Then it sets the text
+ * values for the TextViews as well as the alignment.
  *
  * Written by Esther Goldstein and Neel Jathanna for CS 4301.003,
  * Assignment 2, starting February 3, 2018.
- * NetID: emg140230 and nsj140030
+ * NetIDs: emg140230 and nsj140030
  *
  * Esther Goldstein: HomePage.java, ResultsPage.onPostExecute,
  *                   ResultsPage.displayDialogAfterTimeout,
@@ -38,12 +30,16 @@ import java.util.HashMap;
 public class StableArrayAdapter extends ArrayAdapter<HashMap<String, String>> {
     ArrayList<HashMap<String, String>> values;
 
+    //Constructor for the StableArrayAdapter. Initializes the ArrayList of HashMaps
+    //Written by Neel Jathanna
     public StableArrayAdapter(Context context, int textViewResourceId,
                               ArrayList<HashMap<String, String>> objects) {
         super(context, textViewResourceId, objects);
         values = objects;
     }
 
+    //Class to hold the view for each ListView, with one TextView per column
+    //Written by Neel Jathanna
     private class ViewHolder {
         TextView date;
         TextView open;
@@ -55,9 +51,13 @@ public class StableArrayAdapter extends ArrayAdapter<HashMap<String, String>> {
     }
 
     /****************************************************************************
-     * The function is called for each line in the text file. Each line is split
-     * by commas and each value is placed in a textview. Then, the values of
-     * a line are placed in a listview. Gravity is used for placing each object.
+     * The function is called for each line in the text file. If the current view
+     * is null, each TextView is initialized and the tag is set. Otherwise it gets
+     * the tag of the current view. Then the text for each TextView is set based
+     * on the values in the Hashmap. If the data contains the list headers (at
+     * position 0), the gravity is set to be left-aligned. Otherwise it is set
+     * to be right-aligned.
+     * Written by Neel Jathanna
      ****************************************************************************/
     @Override
     public View getView(int position, View cvtView, ViewGroup parent) {

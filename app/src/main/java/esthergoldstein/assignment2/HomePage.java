@@ -1,5 +1,5 @@
 /** ***************************************************************************
- * Stock Information Program.
+ * Stock Information Program: Home Page
  *
  * This program displays stock information (Date, Open, High, Low, Close, Volume,
  * Adjusted close). It operates by providing a textbox for the user to enter a
@@ -7,15 +7,16 @@
  * for the user to view.
  *
  * If the user enters an invalid or an unavailable stock ticker symbol,
- * a 404 not found popup is displayed and then the program requests a different
- * symbol from the user.
+ * a "404 Not Found" dialog box is displayed and then the program requests a different
+ * symbol from the user. If the program takes 45 seconds to respond, a "Session Timeout"
+ * dialog box is displayed and then the program requests a new symbol from the user.
  *
  * The files that contain the stock information are available at:
- * http://utdallas.edu/~John.Cole/2017Spring/
+ * http://utdallas.edu/~John.Cole/2017Spring/<symbol>.txt
  *
  * Written by Esther Goldstein and Neel Jathanna for CS 4301.003,
  * Assignment 2, starting February 3, 2018.
- * NetID: emg140230 and nsj140030
+ * NetIDs: emg140230 and nsj140030
  *
  * Esther Goldstein: HomePage.java, ResultsPage.onPostExecute,
  *                   ResultsPage.displayDialogAfterTimeout,
@@ -41,9 +42,9 @@ public class HomePage extends AppCompatActivity {
     private EditText userInput;
 
     /**************************************************************************
-     * Creates button, views, and text box. Sets up conditions for 404 when
-     * a file is not found and for timeout when searching for the file takes
-     * too long.
+     * Creates button, EditText, and text instructions. Sets up conditions for 404 when
+     * a file is not found and the timeout when the program takes too long to respond.
+     * Written by Esther Goldstein
      **************************************************************************/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class HomePage extends AppCompatActivity {
         userInput = (EditText)findViewById(R.id.editText);
         displayButton.setEnabled(false);
         userInput.addTextChangedListener(inputWatcher);
+
         Intent iSent = getIntent();
         if(iSent != null && iSent.hasExtra("404")){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -80,7 +82,9 @@ public class HomePage extends AppCompatActivity {
         }
     }
 
-    public void startAsyncTask(View sender){
+    //Starts the ResultsPage activity and sends it the ticker symbol
+    //Written by Esther Goldstein
+    public void startNewActivity(View sender){
         String text;
         text = userInput.getText().toString();
         Intent iSend = new Intent(this, ResultsPage.class);
@@ -88,6 +92,9 @@ public class HomePage extends AppCompatActivity {
         startActivity(iSend);
 
     }
+
+    //Only enables the button after text is entered in the EditText
+    //Written by Esther Goldstein
     private final TextWatcher inputWatcher = new TextWatcher() {
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }

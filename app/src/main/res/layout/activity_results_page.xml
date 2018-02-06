@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Written by Esther Goldstein and Neel Jathanna for CS 4301.003,
+ Assignment 2, starting February 3, 2018.
+ Describes the layout for the ListView, which is embedded in a HorizontalScrollView.
+ NetIDs: emg140230 and nsj140030 -->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,12 +13,12 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <ListView
-        android:id="@+id/listview"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:scrollbars="horizontal">
-    </ListView>
+        <ListView
+            android:id="@+id/listview"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:scrollbars="horizontal">
+        </ListView>
     </HorizontalScrollView>
 
 </android.support.constraint.ConstraintLayout>
