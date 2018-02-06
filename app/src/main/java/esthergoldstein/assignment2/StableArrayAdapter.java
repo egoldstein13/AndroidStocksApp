@@ -81,7 +81,7 @@ public class StableArrayAdapter extends ArrayAdapter<HashMap<String, String>> {
         holder.volume.setText(values.get(position).get("Volume"));
         holder.adjClose.setText(values.get(position).get("AdjClose"));
 
-        if (values.get(position).get("Date").toUpperCase().equals("DATE")) {
+        if (position==0) {
             holder.date.setGravity(Gravity.LEFT);
             holder.open.setGravity(Gravity.LEFT);
             holder.high.setGravity(Gravity.LEFT);
@@ -89,6 +89,15 @@ public class StableArrayAdapter extends ArrayAdapter<HashMap<String, String>> {
             holder.close.setGravity(Gravity.LEFT);
             holder.volume.setGravity(Gravity.LEFT);
             holder.adjClose.setGravity(Gravity.LEFT);
+        }
+        else{
+            holder.date.setGravity(Gravity.RIGHT);
+            holder.open.setGravity(Gravity.RIGHT);
+            holder.high.setGravity(Gravity.RIGHT);
+            holder.low.setGravity(Gravity.RIGHT);
+            holder.close.setGravity(Gravity.RIGHT);
+            holder.volume.setGravity(Gravity.RIGHT);
+            holder.adjClose.setGravity(Gravity.RIGHT);
         }
         return cvtView;
     }

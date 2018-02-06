@@ -27,6 +27,7 @@ public class ResultsPage extends AppCompatActivity {
     static StableArrayAdapter adapter;
     static ArrayList<HashMap<String, String>> results;
     static Handler handler;
+    static RetrieveResultsTask task;
 
 
     @Override
@@ -40,7 +41,8 @@ public class ResultsPage extends AppCompatActivity {
             strText = iSent.getStringExtra("text");
         }
         listView = (ListView) findViewById(R.id.listview);
-        new RetrieveResultsTask(ResultsPage.this).execute(strText);
+        task = new RetrieveResultsTask(ResultsPage.this);
+        task.execute(strText);
     }
 
     public static class RetrieveResultsTask extends AsyncTask<String, Integer, ArrayList<HashMap<String, String>>>{
@@ -59,7 +61,7 @@ public class ResultsPage extends AppCompatActivity {
             handler = new Handler();
             handler.postDelayed(new Runnable(){
                 public void run() {
-                    if(handler!=null)
+                    if(task.getStatus() == AsyncTask.Status.RUNNING )
                         handler.removeCallbacksAndMessages(null);
                         displayDialogAfterTimeout(true);
                 }
@@ -101,7 +103,7 @@ public class ResultsPage extends AppCompatActivity {
                 }
                 return results;
             }
-            catch(Exception e){
+            catch(Exception e) {
                 Log.e("Error", e.getMessage());
                 e.printStackTrace();
 
@@ -122,13 +124,18 @@ public class ResultsPage extends AppCompatActivity {
                 adapter = new StableArrayAdapter(context, R.layout.listview_format, results);
                 listView.setAdapter(adapter);
             }
-
+            cancelTask();
         }
+
         public void displayDialogAfterTimeout(Boolean result){
             cancel(result);
             Intent intent = new Intent(context, HomePage.class);
             intent.putExtra("Timeout", "Timeout");
             context.startActivity(intent);
+        }
+        public void cancelTask(){
+            handler.removeCallbacksAndMessages(null);
+            cancel(true);
         }
     }
 }
