@@ -1,9 +1,25 @@
-/******************************************************************************
- * Class that is used to display high score lists.  This is the adapter, or
- * model, that contains the strings.  The scores list is tab-separated values
- * with the score, name, and date, in that order.
+/** ***************************************************************************
+ * Stock Information Program.
  *
- * Written by John Cole.
+ * This program displays stock information (Date, Open, High, Low, Close, Volume,
+ * Adjusted close). It operates by providing a textbox for the user to enter a
+ * a stock's ticker symbol. It then returns a listview of the stock information
+ * for the user to view.
+ *
+ * If the user enters an invalid or an unavailable stock ticker symbol,
+ * a 404 not found popup is displayed and then the program requests a different
+ * symbol from the user.
+ *
+ * The files that contain the stock information are available at:
+ * http://utdallas.edu/~John.Cole/2017Spring/
+ *
+ * Written by Esther Goldstein and Neel Jathanna for CS 4301.003,
+ * Assignment 2, starting February 3, 2018.
+ * NetID: emg140230 and nsj140030
+ *
+ * Esther Goldstein: HomePage.java, ResultsPage.onPostExecute,
+ *                   ResultsPage.displayDialogAfterTimeout,
+ * Neel Jathanna: StableArrayAdapter.java, ResultsPage.doInBackground
  ******************************************************************************/
 
 package esthergoldstein.assignment2;
@@ -39,18 +55,9 @@ public class StableArrayAdapter extends ArrayAdapter<HashMap<String, String>> {
     }
 
     /****************************************************************************
-     * This overridden function is called for each line in the list.  Split the
-     * data string on tabs and put each component into the TextView in the View
-     * we return, which is then displayed.
-     *
-     * Since it does not seem possible to assign each of the components of the
-     * ListView line a percentage of the screen width, that is done in the code
-     * below.  These look reasonably good on both my Asus tablet and my Galaxy
-     * S5 phone.
-     * @param position
-     * @param cvtView
-     * @param parent
-     * @return
+     * The function is called for each line in the text file. Each line is split
+     * by commas and each value is placed in a textview. Then, the values of
+     * a line are placed in a listview. Gravity is used for placing each object.
      ****************************************************************************/
     @Override
     public View getView(int position, View cvtView, ViewGroup parent) {

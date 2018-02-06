@@ -1,3 +1,27 @@
+/** ***************************************************************************
+ * Stock Information Program.
+ *
+ * This program displays stock information (Date, Open, High, Low, Close, Volume,
+ * Adjusted close). It operates by providing a textbox for the user to enter a
+ * a stock's ticker symbol. It then returns a listview of the stock information
+ * for the user to view.
+ *
+ * If the user enters an invalid or an unavailable stock ticker symbol,
+ * a 404 not found popup is displayed and then the program requests a different
+ * symbol from the user.
+ *
+ * The files that contain the stock information are available at:
+ * http://utdallas.edu/~John.Cole/2017Spring/
+ *
+ * Written by Esther Goldstein and Neel Jathanna for CS 4301.003,
+ * Assignment 2, starting February 3, 2018.
+ * NetID: emg140230 and nsj140030
+ *
+ * Esther Goldstein: HomePage.java, ResultsPage.onPostExecute,
+ *                   ResultsPage.displayDialogAfterTimeout,
+ * Neel Jathanna: StableArrayAdapter.java, ResultsPage.doInBackground
+ ******************************************************************************/
+
 package esthergoldstein.assignment2;
 
 import android.content.DialogInterface;
@@ -16,6 +40,11 @@ public class HomePage extends AppCompatActivity {
     private Button displayButton;
     private EditText userInput;
 
+    /**************************************************************************
+     * Creates button, views, and text box. Sets up conditions for 404 when
+     * a file is not found and for timeout when searching for the file takes
+     * too long.
+     **************************************************************************/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
